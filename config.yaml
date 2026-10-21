@@ -1,0 +1,64 @@
+# ══════════════════════════════════════════════════════════════════════════════
+#  Advanced Web Scraper — Configuration
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Target websites to scrape. Add or remove entries as needed.
+# Each entry needs a 'name' (folder name) and 'url' (starting URL).
+targets:
+  - name: deloitte
+    url: https://www2.deloitte.com
+    max_pages: 30
+
+  - name: google
+    url: https://about.google
+    max_pages: 30
+
+  - name: microsoft
+    url: https://www.microsoft.com
+    max_pages: 30
+
+  - name: goldman_sachs
+    url: https://www.goldmansachs.com
+    max_pages: 30
+
+# ── Crawl Settings ──────────────────────────────────────────────────────────
+crawl:
+  max_depth: 2                # How many link-hops deep to crawl from the seed
+  max_pages_per_site: 30      # Hard cap on pages per site
+  request_delay: 1.5          # Seconds between requests (be polite)
+  request_timeout: 20         # Seconds before a request times out
+  retry_attempts: 3           # Retries on transient failures
+  respect_robots_txt: true    # Honour robots.txt directives
+  follow_external_links: false
+
+# ── User-Agent Rotation ────────────────────────────────────────────────────
+user_agents:
+  - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+  - "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
+  - "Mozilla/5.0 (X11; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0"
+  - "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0"
+
+# ── Data Extraction ────────────────────────────────────────────────────────
+extract:
+  metadata: true        # <title>, <meta>, Open Graph, Twitter cards
+  headings: true        # h1–h6
+  paragraphs: true      # All <p> text
+  links: true           # Internal + external links
+  images: true          # <img> src, alt, dimensions
+  tables: true          # HTML <table> contents
+  lists: true           # <ul>/<ol> items
+  forms: true           # <form> actions & fields
+  scripts_styles: false # JS/CSS source links
+  structured_data: true # JSON-LD, microdata, RDFa
+  contact_info: true    # Emails, phone numbers
+  social_media: true    # Social profile links
+
+# ── Output Settings ─────────────────────────────────────────────────────────
+output:
+  directory: output
+  formats:
+    - html       # Beautiful interactive HTML report
+    - json       # Machine-readable JSON
+    - csv        # Tabular CSV (links, images, contacts)
+  save_raw_html: false   # Save raw HTML of each page
+  screenshots: false     # Requires Playwright (optional)
